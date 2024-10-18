@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg5vrv6hnb7g8"]
+
+[ext_resource type="PackedScene" uid="uid://dhqvpxi6y8i1u" path="res://Labs/1/scenes/bird.tscn" id="1_wglmu"]
+[ext_resource type="PackedScene" uid="uid://by7nlgfq76rlq" path="res://Labs/1/scenes/boulder.tscn" id="2_8mdp4"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Bird" parent="." instance=ExtResource("1_wglmu")]
+position = Vector2(556, 132)
+
+[node name="Boulder" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(221, 108)
+rotation = -0.432466
+
+[node name="Boulder2" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(125, 306)
+rotation = 2.01114
+
+[node name="Boulder3" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(310, 416)
+rotation = 0.346356
+
+[node name="Boulder4" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(115, 580)
+rotation = 1.83678
+
+[node name="Boulder5" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(433, 173)
+rotation = 0.158331
+
+[node name="Boulder6" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(536, 429)
+rotation = -0.751855
+
+[node name="Boulder7" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(421, 570)
+rotation = -2.64304
+
+[node name="Boulder8" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(676, 222)
+rotation = 0.750559
+
+[node name="Boulder9" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(837, 59)
+rotation = -0.318618
+
+[node name="Boulder10" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(977, 200)
+rotation = -1.48465
+
+[node name="Boulder11" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(855, 380)
+rotation = -0.141081
+
+[node name="Boulder12" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(1010, 541)
+rotation = -0.787794
+
+[node name="Boulder13" parent="." instance=ExtResource("2_8mdp4")]
+position = Vector2(755, 545)
+rotation = -0.372299

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmkpxvk6kvxt1"]
+
+[ext_resource type="Script" path="res://Labs/SHMUT/scripts/bullet.gd" id="1_2gn3x"]
+[ext_resource type="Texture2D" uid="uid://cgxfqatt01a32" path="res://global_assets/sprites/PNG/Lasers/laserBlue01.png" id="1_kr330"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhgbf"]
+size = Vector2(10, 55)
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_2gn3x")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_kr330")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rhgbf")
+
+[node name="VisbilityNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-5, -27, 10, 55)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisbilityNotifier" to="." method="_on_visbility_notifier_screen_exited"]

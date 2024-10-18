@@ -1,0 +1,74 @@
+[gd_scene load_steps=12 format=3 uid="uid://bhykx2o04nrd2"]
+
+[ext_resource type="PackedScene" uid="uid://ceaevh0l1mud1" path="res://Labs/3/scenes/paddle.tscn" id="1_8qvux"]
+[ext_resource type="Script" path="res://Labs/3/scripts/bricks.gd" id="1_60od4"]
+[ext_resource type="Script" path="res://Labs/3/scripts/pong.gd" id="1_qmt0q"]
+[ext_resource type="PackedScene" uid="uid://bykdlevm7g23r" path="res://Labs/3/scenes/brick.tscn" id="2_r4pmc"]
+[ext_resource type="Theme" uid="uid://dagmmovas8t8" path="res://global_assets/resources/default.tres" id="5_hh6ll"]
+[ext_resource type="Script" path="res://Labs/3/scripts/ui.gd" id="5_kyk4s"]
+[ext_resource type="PackedScene" uid="uid://loybtxgaq34i" path="res://Labs/3/scenes/rigid_ball.tscn" id="5_r2bqc"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ijsxd"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_spuae"]
+normal = Vector2(-1, 0)
+distance = -1152.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xhqan"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j3ifk"]
+distance = -648.0
+
+[node name="Pong" type="Node2D"]
+script = ExtResource("1_qmt0q")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Left" type="StaticBody2D" parent="Walls"]
+
+[node name="Collision" type="CollisionShape2D" parent="Walls/Left"]
+shape = SubResource("WorldBoundaryShape2D_ijsxd")
+
+[node name="Right" type="StaticBody2D" parent="Walls"]
+
+[node name="Collision" type="CollisionShape2D" parent="Walls/Right"]
+shape = SubResource("WorldBoundaryShape2D_spuae")
+
+[node name="Down" type="StaticBody2D" parent="Walls"]
+
+[node name="Collision" type="CollisionShape2D" parent="Walls/Down"]
+shape = SubResource("WorldBoundaryShape2D_xhqan")
+
+[node name="Up" type="StaticBody2D" parent="Walls"]
+
+[node name="Collision" type="CollisionShape2D" parent="Walls/Up"]
+shape = SubResource("WorldBoundaryShape2D_j3ifk")
+
+[node name="Bricks" type="Node2D" parent="."]
+script = ExtResource("1_60od4")
+brick_scene = ExtResource("2_r4pmc")
+brick_vertical_range = 150
+brick_count = Vector2(8, 3)
+
+[node name="Paddle" parent="." instance=ExtResource("1_8qvux")]
+position = Vector2(576, 550)
+
+[node name="Ball" parent="." instance=ExtResource("5_r2bqc")]
+position = Vector2(576, 324)
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("5_kyk4s")
+
+[node name="Score" type="Label" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_hh6ll")
+text = "Score: 0"
+horizontal_alignment = 1
+
+[connection signal="brick_destroyed" from="Bricks" to="." method="_on_brick_destroyed"]

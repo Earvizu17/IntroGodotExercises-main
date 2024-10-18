@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5npsu2wal4iy"]
+
+[ext_resource type="Script" path="res://Labs/infinite_runner/scripts/inf_box.gd" id="1_hkulu"]
+[ext_resource type="Texture2D" uid="uid://bey5i3s7g15q7" path="res://global_assets/sprites/boardgame/Pieces (Purple)/piecePurple_border17.png" id="2_nskk3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1n6nv"]
+size = Vector2(7, 7.5)
+
+[node name="Box" type="Area2D"]
+script = ExtResource("1_hkulu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1n6nv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_nskk3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

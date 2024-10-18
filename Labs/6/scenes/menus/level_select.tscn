@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://coqby3fump6xs"]
+
+[ext_resource type="Theme" uid="uid://dagmmovas8t8" path="res://global_assets/resources/default.tres" id="1_jqj6l"]
+[ext_resource type="Script" path="res://Labs/6/scripts/scene_change_button.gd" id="2_clf1b"]
+
+[node name="LevelSelect" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_jqj6l")
+
+[node name="Vbox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Vbox"]
+layout_mode = 2
+text = "Level Select"
+horizontal_alignment = 1
+
+[node name="Levels" type="MarginContainer" parent="Vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBox" type="HBoxContainer" parent="Vbox/Levels"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="1" type="Button" parent="Vbox/Levels/HBox"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+text = "1
+"
+script = ExtResource("2_clf1b")
+scene_to_load = "res://Labs/6/scenes/levels/level_1.tscn"
+
+[node name="2" type="Button" parent="Vbox/Levels/HBox"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+text = "2
+"
+script = ExtResource("2_clf1b")
+scene_to_load = "res://Labs/6/scenes/levels/level_2.tscn"
+
+[node name="3" type="Button" parent="Vbox/Levels/HBox"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+text = "3"
+script = ExtResource("2_clf1b")
+scene_to_load = "res://Labs/6/scenes/levels/level_3.tscn"

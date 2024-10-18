@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=4 uid="uid://bwrl06xcqp7tl"]
+
+[ext_resource type="Script" path="res://Labs/6/scripts/game.gd" id="1_kjbuy"]
+[ext_resource type="TileSet" uid="uid://ylgswnbpa276" path="res://Labs/6/resources/tiles.tres" id="1_v5ck8"]
+[ext_resource type="PackedScene" uid="uid://coqby3fump6xs" path="res://Labs/6/scenes/menus/level_select.tscn" id="2_8lesg"]
+[ext_resource type="PackedScene" uid="uid://cdubnoh116tj2" path="res://Labs/6/scenes/player.tscn" id="2_rltva"]
+[ext_resource type="PackedScene" uid="uid://oqmvnpal6of1" path="res://Labs/6/scenes/coin.tscn" id="4_ugyh3"]
+[ext_resource type="Script" path="res://Labs/6/scripts/reset_floor.gd" id="5_j823l"]
+[ext_resource type="Script" path="res://Labs/6/scripts/ui_coins.gd" id="6_hyiww"]
+[ext_resource type="Texture2D" uid="uid://cvcfycy11o04a" path="res://Labs/6/assets/coin.png" id="6_mnl6p"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_au0p0"]
+distance = -1332.0
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_kjbuy")
+level_select = ExtResource("2_8lesg")
+
+[node name="Tiles" type="TileMapLayer" parent="."]
+scale = Vector2(4, 4)
+tile_map_data = PackedByteArray("AAAAAAUAggAAAAAAAAABAAUAgwAAAAAAAAACAAUAgwAAAAAAAAADAAUAgwAAAAAAAAADAAYAkwAAAAAAAAADAAcAowAAAAAAAAACAAcAowAAAAAAAAABAAcAowAAAAAAAAAAAAcAogAAAAAAAAAAAAYAkgAAAAAAAAABAAYAkwAAAAAAAAACAAYAkwAAAAAAAAAEAAUAhAAAAAAAAAAEAAYAlAAAAAAAAAAEAAcApAAAAAAAAAAHAAMAcgAAAAAAAAAIAAMAcwAAAAAAAAAJAAMAdAAAAAAAAAANAAUAcgAAAAAAAAAOAAUAdAAAAAAAAAD9/woAdAAAAAAAAAD8/woAcgAAAAAAAAAAAA0AcgAAAAAAAAABAA0AdAAAAAAAAAAFAAwAcgAAAAAAAAAGAAwAdAAAAAAAAAAKAAsAcgAAAAAAAAALAAsAdAAAAAAAAAAPAAwAcQAAAAAAAAASAAwAcQAAAAAAAAAVAAoAcQAAAAAAAAASAAgAcQAAAAAAAAAVAAYAcQAAAAAAAAASAAQAdAAAAAAAAAARAAQAcgAAAAAAAAA=")
+tile_set = ExtResource("1_v5ck8")
+
+[node name="Player" parent="." instance=ExtResource("2_rltva")]
+position = Vector2(179, 324)
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("4_ugyh3")]
+position = Vector2(612, 108)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("4_ugyh3")]
+position = Vector2(1296, 180)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("4_ugyh3")]
+position = Vector2(72, 792)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("4_ugyh3")]
+position = Vector2(1440, 540)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("4_ugyh3")]
+position = Vector2(1224, 756)
+
+[node name="ResetFloor" type="Area2D" parent="."]
+script = ExtResource("5_j823l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetFloor"]
+shape = SubResource("WorldBoundaryShape2D_au0p0")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Margin" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 25
+
+[node name="Coins" type="HBoxContainer" parent="UI/Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("6_hyiww")
+
+[node name="Coin" type="TextureRect" parent="UI/Margin/Coins"]
+modulate = Color(0.53, 0.53, 0.53, 0.54902)
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("6_mnl6p")
+
+[connection signal="collected" from="Coins/Coin" to="." method="on_coin_collected"]
+[connection signal="collected" from="Coins/Coin2" to="." method="on_coin_collected"]
+[connection signal="collected" from="Coins/Coin3" to="." method="on_coin_collected"]
+[connection signal="collected" from="Coins/Coin4" to="." method="on_coin_collected"]
+[connection signal="collected" from="Coins/Coin5" to="." method="on_coin_collected"]

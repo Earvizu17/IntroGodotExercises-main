@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://7nwd5c6svi2g"]
+
+[ext_resource type="Script" path="res://Labs/SHMUT/scripts/player.gd" id="1_fuael"]
+[ext_resource type="Texture2D" uid="uid://bmq1reirkxtw0" path="res://Labs/SHMUT/assets/playerShip1_blue.png" id="1_wttve"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kla4p"]
+size = Vector2(96, 74)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_fuael")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_wttve")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kla4p")

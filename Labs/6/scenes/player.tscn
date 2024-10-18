@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdubnoh116tj2"]
+
+[ext_resource type="Script" path="res://Labs/6/scripts/player.gd" id="1_jv1hd"]
+[ext_resource type="Texture2D" uid="uid://dbg6xgms8sg2j" path="res://Labs/6/assets/character_0000.png" id="2_06teu"]
+[ext_resource type="Texture2D" uid="uid://cicdujygmnrya" path="res://Labs/6/assets/character_0001.png" id="3_6bunn"]
+[ext_resource type="Texture2D" uid="uid://bmr6vj8gq3gyv" path="res://Labs/6/assets/bg0.png" id="4_peq6j"]
+[ext_resource type="Texture2D" uid="uid://3vytyv0545xk" path="res://Labs/6/assets/bg1.png" id="5_jn1h6"]
+[ext_resource type="Texture2D" uid="uid://b774lwawwhy8u" path="res://Labs/6/assets/bg2.png" id="6_bct3l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vpubv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_06teu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6bunn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_06teu")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_811yy"]
+radius = 30.0
+height = 72.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_jv1hd")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_vpubv")
+animation = &"run"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.171585
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_811yy")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
+
+[node name="EdgeGrace" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="EarlyGrace" type="RayCast2D" parent="."]
+position = Vector2(0, 36)
+target_position = Vector2(0, 8)
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0.1, 0)
+motion_mirroring = Vector2(1734, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Sky"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_peq6j")
+centered = false
+
+[node name="BackMountains" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0.2, 0)
+motion_mirroring = Vector2(1728, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/BackMountains"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_jn1h6")
+centered = false
+
+[node name="ForwardMountains" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0.3, 0)
+motion_mirroring = Vector2(1728, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ForwardMountains"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_bct3l")
+centered = false
+
+[connection signal="timeout" from="EdgeGrace" to="." method="_on_edge_grace_timeout"]

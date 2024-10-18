@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2h2d56s8lavu"]
+
+[ext_resource type="Texture2D" uid="uid://ddwue5o6746rs" path="res://Labs/infinite_runner/assets/art/tile_0003.png" id="1_6fhlo"]
+[ext_resource type="Script" path="res://Labs/infinite_runner/scripts/InfiniteRunnerGround.gd" id="1_xv24h"]
+[ext_resource type="Texture2D" uid="uid://dnl4fdockw1ap" path="res://Labs/infinite_runner/assets/art/tile_0004.png" id="2_yk5au"]
+[ext_resource type="Texture2D" uid="uid://bixi5pdvkjods" path="res://Labs/infinite_runner/assets/art/tile_0005.png" id="3_21de8"]
+[ext_resource type="PackedScene" uid="uid://b5npsu2wal4iy" path="res://Labs/infinite_runner/scenes/flag.tscn" id="5_eenjf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1y5x"]
+size = Vector2(80, 14.6667)
+
+[node name="Ground" type="StaticBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_xv24h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(40, 0.667)
+shape = SubResource("RectangleShape2D_p1y5x")
+
+[node name="Tiles" type="Node2D" parent="."]
+position = Vector2(40, 0)
+
+[node name="Tile0003" type="Sprite2D" parent="Tiles"]
+position = Vector2(-32, 0)
+texture = ExtResource("1_6fhlo")
+
+[node name="Tile0004" type="Sprite2D" parent="Tiles"]
+position = Vector2(-16, 0)
+texture = ExtResource("2_yk5au")
+
+[node name="Tile0006" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("2_yk5au")
+
+[node name="Tile0007" type="Sprite2D" parent="Tiles"]
+position = Vector2(16, 0)
+texture = ExtResource("2_yk5au")
+
+[node name="Tile0005" type="Sprite2D" parent="Tiles"]
+position = Vector2(32, 0)
+texture = ExtResource("3_21de8")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(0, -8, 80, 16)
+
+[node name="Box" parent="." instance=ExtResource("5_eenjf")]
+position = Vector2(73, -12.333)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="player_hit" from="Box" to="." method="_on_box_player_hit"]

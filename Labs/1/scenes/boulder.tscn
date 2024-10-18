@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://by7nlgfq76rlq"]
+
+[ext_resource type="Texture2D" uid="uid://bldgpqykt7amm" path="res://Labs/1/assets/boulder.png" id="1_ejch3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cocuk"]
+radius = 51.0392
+
+[node name="Boulder" type="RigidBody2D"]
+gravity_scale = 0.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("1_ejch3")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cocuk")

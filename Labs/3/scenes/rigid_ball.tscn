@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://loybtxgaq34i"]
+
+[ext_resource type="Script" path="res://Labs/3/scripts/rigid_ball.gd" id="1_cjigd"]
+[ext_resource type="Texture2D" uid="uid://glnplb6genbr" path="res://Labs/3/assets/pBall.png" id="2_wrl0j"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m8vuk"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31uh3"]
+radius = 13.0
+
+[node name="Ball" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_m8vuk")
+gravity_scale = 0.0
+can_sleep = false
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(200, 200)
+script = ExtResource("1_cjigd")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_wrl0j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_31uh3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

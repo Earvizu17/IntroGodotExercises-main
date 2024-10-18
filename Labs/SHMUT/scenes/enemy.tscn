@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dacpjhtkka5hg"]
+
+[ext_resource type="Texture2D" uid="uid://whlyean6xuvy" path="res://Labs/SHMUT/assets/playerShip1_red.png" id="1_8kaaa"]
+[ext_resource type="Script" path="res://Labs/SHMUT/scripts/enemy.gd" id="1_ghyud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3u8h3"]
+size = Vector2(96, 74)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_ghyud")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("1_8kaaa")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3u8h3")

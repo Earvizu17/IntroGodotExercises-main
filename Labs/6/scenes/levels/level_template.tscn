@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://c06lo3v8vfbl8"]
+
+[ext_resource type="Script" path="res://Labs/6/scripts/game.gd" id="1_oc1p2"]
+[ext_resource type="PackedScene" uid="uid://coqby3fump6xs" path="res://Labs/6/scenes/menus/level_select.tscn" id="2_fgcs1"]
+[ext_resource type="TileSet" uid="uid://ylgswnbpa276" path="res://Labs/6/resources/tiles.tres" id="2_w3pss"]
+[ext_resource type="PackedScene" uid="uid://cdubnoh116tj2" path="res://Labs/6/scenes/player.tscn" id="3_kppkk"]
+[ext_resource type="PackedScene" uid="uid://oqmvnpal6of1" path="res://Labs/6/scenes/coin.tscn" id="4_tsvuu"]
+[ext_resource type="Script" path="res://Labs/6/scripts/reset_floor.gd" id="5_1f7yq"]
+[ext_resource type="Script" path="res://Labs/6/scripts/ui_coins.gd" id="6_ux886"]
+[ext_resource type="Texture2D" uid="uid://cvcfycy11o04a" path="res://Labs/6/assets/coin.png" id="7_gjalu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_au0p0"]
+distance = -1332.0
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_oc1p2")
+level_select = ExtResource("2_fgcs1")
+max_score = 1
+
+[node name="Tiles" type="TileMapLayer" parent="."]
+scale = Vector2(4, 4)
+tile_map_data = PackedByteArray(0, 0, 1, 0, 5, 0, 114, 0, 0, 0, 0, 0, 0, 0, 2, 0, 5, 0, 115, 0, 0, 0, 0, 0, 0, 0, 3, 0, 5, 0, 116, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("2_w3pss")
+
+[node name="Player" parent="." instance=ExtResource("3_kppkk")]
+position = Vector2(179, 324)
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("4_tsvuu")]
+position = Vector2(180, 252)
+
+[node name="ResetFloor" type="Area2D" parent="."]
+script = ExtResource("5_1f7yq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetFloor"]
+shape = SubResource("WorldBoundaryShape2D_au0p0")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Margin" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 25
+
+[node name="Coins" type="HBoxContainer" parent="UI/Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("6_ux886")
+
+[node name="Coin" type="TextureRect" parent="UI/Margin/Coins"]
+modulate = Color(0.53, 0.53, 0.53, 0.54902)
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_gjalu")
+
+[connection signal="collected" from="Coins/Coin" to="." method="on_coin_collected"]

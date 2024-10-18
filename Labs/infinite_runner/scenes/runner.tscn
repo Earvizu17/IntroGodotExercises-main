@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://bj78e2qx4b70t"]
+
+[ext_resource type="Script" path="res://Labs/infinite_runner/scripts/game.gd" id="1_iujg3"]
+[ext_resource type="PackedScene" uid="uid://b2h2d56s8lavu" path="res://Labs/infinite_runner/scenes/RunnerGround.tscn" id="1_r2bri"]
+[ext_resource type="AudioStream" uid="uid://w1rkk55ld641" path="res://Labs/infinite_runner/assets/audio/Ludum Dare 38 - Track 2.wav" id="2_xwj7f"]
+[ext_resource type="Script" path="res://Labs/infinite_runner/scripts/ground_spawner.gd" id="4_2ribp"]
+[ext_resource type="PackedScene" uid="uid://beqnqoikyrijj" path="res://Labs/infinite_runner/scenes/player.tscn" id="4_uyn8v"]
+
+[node name="runner" type="Node2D"]
+script = ExtResource("1_iujg3")
+main_track = ExtResource("2_xwj7f")
+
+[node name="InfinitePlayer" parent="." instance=ExtResource("4_uyn8v")]
+position = Vector2(0, -48)
+
+[node name="GroundSpawner" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("4_2ribp")
+ground = ExtResource("1_r2bri")
+player = NodePath("../InfinitePlayer")
+
+[node name="Ground" parent="GroundSpawner" instance=ExtResource("1_r2bri")]
+
+[connection signal="player_hit" from="GroundSpawner" to="." method="_on_ground_spawner_player_hit"]
+[connection signal="player_hit" from="GroundSpawner/Ground" to="GroundSpawner" method="_on_ground_player_hit"]
