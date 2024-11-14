@@ -1,0 +1,105 @@
+[gd_scene load_steps=14 format=3 uid="uid://cj5hgwiqqwkl3"]
+
+[ext_resource type="Script" path="res://Labs/13/ColorCube.gd" id="1_apru4"]
+[ext_resource type="Script" path="res://Labs/13/fp_character.gd" id="2_am0vb"]
+[ext_resource type="Script" path="res://Labs/13/camera_3d.gd" id="3_2h3ca"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cr4nu"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_1s3i2"]
+sky_material = SubResource("ProceduralSkyMaterial_cr4nu")
+
+[sub_resource type="Environment" id="Environment_gjknb"]
+background_mode = 2
+sky = SubResource("Sky_1s3i2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_w62hv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_enu3r"]
+albedo_color = Color(0, 0, 1, 1)
+albedo_texture_msdf = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vnge5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_32xgj"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5yw1"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0idsq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lq60t"]
+size = Vector3(13.0323, 1, 13.127)
+
+[node name="PushingPuzzle" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gjknb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Box" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.63725, 0.503511, 0)
+script = ExtResource("1_apru4")
+cubeColor = "Blue"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box"]
+mesh = SubResource("BoxMesh_w62hv")
+surface_material_override/0 = SubResource("StandardMaterial3D_enu3r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box"]
+shape = SubResource("BoxShape3D_vnge5")
+
+[node name="Box2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92237, 0.512666, 0)
+script = ExtResource("1_apru4")
+cubeColor = "Red"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box2"]
+mesh = SubResource("BoxMesh_w62hv")
+surface_material_override/0 = SubResource("StandardMaterial3D_32xgj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2"]
+shape = SubResource("BoxShape3D_vnge5")
+
+[node name="Box3" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52182, 0)
+script = ExtResource("1_apru4")
+cubeColor = "Yellow"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box3"]
+mesh = SubResource("BoxMesh_w62hv")
+surface_material_override/0 = SubResource("StandardMaterial3D_j5yw1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box3"]
+shape = SubResource("BoxShape3D_vnge5")
+
+[node name="FPCharacter" type="CharacterBody3D" parent="." node_paths=PackedStringArray("raycastNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.668296, 0)
+up_direction = Vector3(0, 0, 1)
+script = ExtResource("2_am0vb")
+raycastNode = NodePath("RayCast3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FPCharacter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.338725, 2.80779)
+shape = SubResource("CapsuleShape3D_0idsq")
+
+[node name="Camera3D" type="Camera3D" parent="FPCharacter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.827829, 2.86515)
+script = ExtResource("3_2h3ca")
+
+[node name="RayCast3D" type="RayCast3D" parent="FPCharacter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.823927, 2.80135)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24454, -0.494356, -2.9296)
+shape = SubResource("BoxShape3D_lq60t")

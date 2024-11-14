@@ -1,15 +1,38 @@
-[gd_scene load_steps=8 format=3 uid="uid://p48vmpxrvaju"]
+[gd_scene load_steps=15 format=3 uid="uid://p48vmpxrvaju"]
 
-[ext_resource type="PackedScene" uid="uid://dy7mq71ubeecu" path="res://Labs/12/assets/roofMetal_poles.glb" id="1_2p3ka"]
+[ext_resource type="PackedScene" uid="uid://dy7mq71ubeecu" path="res://Labs/12/assets/wallB_window.glb" id="1_2p3ka"]
 [ext_resource type="PackedScene" uid="uid://0cs2w62j50dx" path="res://Labs/12/assets/detailDumpster_open.glb" id="2_pmdl3"]
 [ext_resource type="PackedScene" uid="uid://co3u1iio4cpj" path="res://Labs/12/assets/grass.glb" id="3_b303p"]
-[ext_resource type="PackedScene" uid="uid://bcmw8ouol0fuv" path="res://Labs/12/assets/tree_large.glb" id="4_5hrrk"]
+[ext_resource type="Script" path="res://Labs/12/player.gd" id="5_dgksm"]
 [ext_resource type="PackedScene" uid="uid://bcmw8ouol0fuv" path="res://Labs/12/assets/truck_green.glb" id="5_x5pub"]
 [ext_resource type="PackedScene" uid="uid://dlptr4ty8l400" path="res://Labs/12/assets/wall_typeA.glb" id="6_c3tdp"]
+[ext_resource type="Script" path="res://Labs/12/alert_zone.gd" id="7_e81y8"]
+[ext_resource type="AudioStream" uid="uid://ctcyalquldxto" path="res://Labs/12/assets/door_creak.wav" id="8_p48lm"]
+[ext_resource type="Script" path="res://Labs/12/ui.gd" id="9_swhe7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ohobx"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ctogk"]
+sky_material = SubResource("ProceduralSkyMaterial_ohobx")
+
+[sub_resource type="Environment" id="Environment_eu8uh"]
+background_mode = 2
+sky = SubResource("Sky_ctogk")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxeiv"]
+height = 1.65
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_slt6j"]
+size = Vector3(7, 3, 7)
 
 [node name="walkingSim" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eu8uh")
 
 [node name="roofMetal_poles" parent="." instance=ExtResource("1_2p3ka")]
 transform = Transform3D(2.35674, 0, 0, 0, 2.35674, 0, 0, 0, 2.35674, -5.55247, 0.0269117, -3.30254)
@@ -212,38 +235,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.80095, 0, 2.51484)
 [node name="grass64" parent="Ground" instance=ExtResource("3_b303p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.80271, 0, 2.51484)
 
-[node name="tree_large" parent="Ground" instance=ExtResource("4_5hrrk")]
+[node name="tree_large" parent="Ground" instance=ExtResource("5_x5pub")]
 transform = Transform3D(0.61935, 0, 0, 0, 0.61935, 0, 0, 0, 0.61935, -3.44996, 0.0274988, -1.74046)
 
-[node name="tree_large2" parent="Ground" instance=ExtResource("4_5hrrk")]
+[node name="tree_large2" parent="Ground" instance=ExtResource("5_x5pub")]
 transform = Transform3D(0.61935, 0, 0, 0, 0.61935, 0, 0, 0, 0.61935, -4.20065, 0.0274988, -1.15722)
 
-[node name="tree_large3" parent="Ground" instance=ExtResource("4_5hrrk")]
+[node name="tree_large3" parent="Ground" instance=ExtResource("5_x5pub")]
 transform = Transform3D(0.61935, 0, 0, 0, 0.61935, 0, 0, 0, 0.61935, 0.299948, 0.0274988, -1.15722)
 
-[node name="tree_large4" parent="Ground" instance=ExtResource("4_5hrrk")]
+[node name="tree_large4" parent="Ground" instance=ExtResource("5_x5pub")]
 transform = Transform3D(0.61935, 0, 0, 0, 0.61935, 0, 0, 0, 0.61935, 0.299948, 0.0274988, 0.856393)
 
-[node name="tree_large5" parent="Ground" instance=ExtResource("4_5hrrk")]
+[node name="tree_large5" parent="Ground" instance=ExtResource("5_x5pub")]
 transform = Transform3D(0.61935, 0, 0, 0, 0.61935, 0, 0, 0, 0.61935, -0.629466, 0.0274988, 1.74812)
 
 [node name="Player" type="CharacterBody3D" parent="."]
+collision_layer = 2
+script = ExtResource("5_dgksm")
+speed = 7.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25999, 0)
+[node name="Collision" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.825, 0)
 shape = SubResource("CapsuleShape3D_gxeiv")
 
-[node name="Player2" type="CharacterBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25999, 0)
-shape = SubResource("CapsuleShape3D_gxeiv")
-
-[node name="Camera3D" type="Camera3D" parent="Player2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93111, 0)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Player2/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 0.928919, 0.370282, 0, -0.370282, 0.928919, 0, 1.87599, 0)
+[node name="Camera" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57, 0)
 
 [node name="Car" type="Node3D" parent="."]
 transform = Transform3D(0.75116, 0, -0.66012, 0, 1, 0, 0.66012, 0, 0.75116, 6.49674, 0, 1.73722)
@@ -262,3 +279,56 @@ transform = Transform3D(-0.0823985, 0, -2.53188, 0, 2.53322, 0, 2.53188, 0, -0.0
 
 [node name="wall_typeA2" parent="." instance=ExtResource("6_c3tdp")]
 transform = Transform3D(-0.0823985, 0, -2.53188, 0, 2.53322, 0, 2.53188, 0, -0.0823985, 8.64169, 4.76837e-07, -24.6283)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.928919, 0.370282, 0, -0.370282, 0.928919, 0, 3.8071, 0)
+
+[node name="AlertZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0765, 0, -9.48694)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("7_e81y8")
+
+[node name="Collision" type="CollisionShape3D" parent="AlertZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_slt6j")
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="AlertZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30237, 0)
+stream = ExtResource("8_p48lm")
+
+[node name="FloatyLabel" type="Label3D" parent="AlertZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.36151, 0)
+visible = false
+billboard = 1
+double_sided = false
+text = "Press E to interact with me!"
+font_size = 48
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("9_swhe7")
+
+[node name="Margin" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="InteractionLabel" type="Label" parent="UI/Margin"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 24
+text = "Press E to interact with the creepy window box"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[connection signal="body_entered" from="AlertZone" to="AlertZone" method="_on_body_entered"]
+[connection signal="body_exited" from="AlertZone" to="AlertZone" method="_on_body_exited"]
+[connection signal="player_inside_updated" from="AlertZone" to="UI" method="on_player_inside_updated"]

@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://douadbbc7tjni"
+uid="uid://dqiugobalwhjt"
 path.s3tc="res://.godot/imported/roofMetal_poles_metal_wall.png-7747bc1039616a13b013c5350d53097e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 

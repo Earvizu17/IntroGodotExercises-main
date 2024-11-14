@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dglp7age0k34c"
+uid="uid://dprs8t1jshbn4"
 path.s3tc="res://.godot/imported/wallB_window_windows.png-253b6553263e46bedebf72d80b9f978b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 

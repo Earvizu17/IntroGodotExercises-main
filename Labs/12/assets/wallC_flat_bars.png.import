@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp7tksqka8kmx"
+uid="uid://drsscb627na6r"
 path.s3tc="res://.godot/imported/wallC_flat_bars.png-b8512ad83d85b380d32a107db8426086.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 

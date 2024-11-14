@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu674hlbt5wme"
+uid="uid://vtge757im0ji"
 path.s3tc="res://.godot/imported/detailDumpster_open_dirt.png-4ab0a9f0aa3f5a416e9605303dedaac5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
